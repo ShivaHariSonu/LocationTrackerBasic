@@ -1,0 +1,18 @@
+Database used:- ES, postGIS(not sure present in existing architecture)
+Have the info for all the police station data:- static
+User data:- dynamic(changes while executing the solution)
+flag:- to know the status of user(emergency||normal)
+
+
+
+
+Kafka/mqtt(input data:-(userData&& flag))---------->ES(update userdata constantly in ES) ---------->(if flag is true:- send message to nearby police coordinate)
+
+
+Fields
+id: userID/policeId
+name:String
+type:Police/User
+alert: boolean
+location: geo_point(lat,lon)
+time: current Time
