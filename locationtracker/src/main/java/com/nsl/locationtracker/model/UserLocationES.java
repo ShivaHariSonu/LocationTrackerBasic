@@ -8,10 +8,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
-import java.util.Date;
-
 @Document(indexName = "nsl_location_info")
-public class UserLocationInfo {
+public class UserLocationES {
 
     @Field(type = FieldType.Keyword)
     private String id;
@@ -20,15 +18,12 @@ public class UserLocationInfo {
     private String name;
 
     @Field(type = FieldType.Keyword)
-    private String type;
-
+    private UserType type;
     @Field(type = FieldType.Object)
     @GeoPointField
     private GeoPoint location;
-    @Field(type = FieldType.Long)
-    private Long updatedTime;
 
-    public UserLocationInfo() {
+    public UserLocationES() {
     }
 
     public String getId() {
@@ -39,22 +34,6 @@ public class UserLocationInfo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public GeoPoint getLocation() {
         return location;
     }
@@ -63,11 +42,19 @@ public class UserLocationInfo {
         this.location = location;
     }
 
-    public Long getUpdatedTime() {
-        return updatedTime;
+    public String getName() {
+        return name;
     }
 
-    public void setUpdatedTime(Long updatedTime) {
-        this.updatedTime = updatedTime;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
     }
 }
