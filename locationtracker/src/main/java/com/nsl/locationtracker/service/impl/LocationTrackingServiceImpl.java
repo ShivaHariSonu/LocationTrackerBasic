@@ -70,6 +70,11 @@ public class LocationTrackingServiceImpl implements LocationTrackingService {
 
     @Override
     public List<UserLocationGIS> getNearByTrackers(GeoLocationPoint currentPoint, Double radius, Integer limit) {
-        return postGISRepository.findAllTrackersByDistanceFromUser(currentPoint.getLat(), currentPoint.getLon(), radius,limit);
+        return postGISRepository.findAllTrackersByDistanceFromUser(currentPoint.getLat(), currentPoint.getLon(),limit);
+    }
+
+    @Override
+    public List<UserLocationGIS> getUserInfo() {
+        return postGISRepository.findAll();
     }
 }

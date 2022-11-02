@@ -3,30 +3,33 @@ package com.nsl.locationtracker.model;
 import org.postgis.Point;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="user_location_gis")
-public class UserLocationGIS {
+public class UserLocationGIS implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
-    private Long id;
+    private Integer id;
 
     private String name;
 
     private UserType type;
 
-    @Column(name = "location",columnDefinition = "Point")//@Column(columnDefinition = "geometry(Point,4326)")
+    @Column(name = "location")//@Column(columnDefinition = "geometry(Point,4326)")
     private Point location;
 
     public UserLocationGIS() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

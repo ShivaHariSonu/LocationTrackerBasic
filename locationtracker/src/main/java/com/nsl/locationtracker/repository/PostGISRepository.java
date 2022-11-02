@@ -7,17 +7,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+public interface PostGISRepository extends JpaRepository<UserLocationGIS,Integer>{
 
-@Repository
-public interface PostGISRepository extends JpaRepository<UserLocationGIS,Long>{
-
-    @Query(value = "SELECT nhf.id, nhf.name, nhf.geom, ST_Distance(nhf.geom,ST_SetSRID(ST_Point(:userLongitude,:userLatitude),4326)) AS distance "
-            + "FROM nairobi_Health_facilities nhf "
-            + "ORDER BY nhf.geom  <-> ST_SetSRID(ST_Point(:userLongitude,:userLatitude),4326) "
+    @Query(value = "SELECT name,type,ST_AsText(location) as location"
+            + "FROM user_location_gis"
+            + "WHERE type ='TRACKER'"
+            + "ORDER BY location <-> ST_Point(:userLat,:userLon)"
             + "LIMIT :limit"
             , nativeQuery = true)
-    List<UserLocationGIS> findAllTrackersByDistanceFromUser(@Param("userLon") Double userLongitude,
-                                                            @Param("userLat")  Double userLatitude,
-                                                            @Param("radius")  Double radius,
+    List<UserLocationGIS> findAllTrackersByDistanceFromUser(@Param("userLat")  Double userLatitude,
+                                                            @Param("userLon") Double userLongitude,
                                                             @Param("limit") Integer limit);
 }

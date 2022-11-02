@@ -6,13 +6,12 @@ import com.nsl.locationtracker.service.impl.LocationTrackingServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("location-track")
+@RequestMapping("/location-track")
 public class LocationTrackingController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationTrackingController.class);
 
@@ -36,6 +35,18 @@ public class LocationTrackingController {
         UserLocationGIS result = null;
         try {
             result = locationTrackingServiceImpl.saveGIS(kafkaObject);
+
+        }
+        catch (Exception ex){
+            LOGGER.error("Error while saving the info",ex.getMessage());
+        }
+        return result;
+    }
+    @GetMapping(value = "/getpostgis",produces = "application/json")
+    public List<UserLocationGIS> getUserInfoListInGIS(){
+        List<UserLocationGIS> result = null;
+        try {
+            result = locationTrackingServiceImpl.getUserInfo();
 
         }
         catch (Exception ex){

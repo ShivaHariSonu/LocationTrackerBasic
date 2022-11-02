@@ -15,4 +15,6 @@ public interface LocationTrackingService{
     UserLocationGIS saveGIS(KafkaObject kafkaObject);
 
     List<UserLocationGIS> getNearByTrackers(GeoLocationPoint currentPoint,Double radius, Integer limit);
+
+    List<UserLocationGIS> getUserInfo();
 }

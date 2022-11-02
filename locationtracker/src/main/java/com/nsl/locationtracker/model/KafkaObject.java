@@ -3,7 +3,7 @@ package com.nsl.locationtracker.model;
 import com.google.gson.JsonObject;
 
 public class KafkaObject {
-    private Long id;
+    private Integer id;
     private GeoLocationPoint location;
     private String name;
     private UserType type;
@@ -12,11 +12,11 @@ public class KafkaObject {
     public KafkaObject() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
