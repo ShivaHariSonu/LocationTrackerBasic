@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 public interface PostGISRepository extends JpaRepository<UserLocationGIS,Integer>{
 
-    @Query(value = "SELECT name,type,ST_AsText(location) as location"
+    //SELECT *,ST_AsText(location), ST_DistanceSphere(location,ST_Point(67.0128,49.1234))/1000 as distance
+    @Query(value = "SELECT *,ST_DistanceSphere(location,ST_Point(67.0128,49.1234))/1000 as distance"
             + "FROM user_location_gis"
             + "WHERE type ='TRACKER'"
             + "ORDER BY location <-> ST_Point(:userLat,:userLon)"

@@ -6,7 +6,7 @@ public class KafkaObject {
     private Integer id;
     private GeoLocationPoint location;
     private String name;
-    private UserType type;
+    private String type;
     private Boolean alert;
 
     public KafkaObject() {
@@ -44,11 +44,11 @@ public class KafkaObject {
         this.name = name;
     }
 
-    public UserType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -57,7 +57,7 @@ public class KafkaObject {
         JsonObject json = new JsonObject();
         json.addProperty("id",id);
         json.addProperty("name",name);
-        json.addProperty("type",type.toString());
+        json.addProperty("type",type);
         return json.toString();
     }
 }
