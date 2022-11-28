@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
 import org.postgis.PGgeometry;
 
 
@@ -14,7 +15,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="user_location_gis_1")
+@Table(name="user_location_gis")
 public class UserLocationGIS implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,8 +30,8 @@ public class UserLocationGIS implements Serializable {
     private String type;
 
 
-    @Column(name = "location")
-    private PGgeometry location;
+    @Column(columnDefinition = "geometry(Point,4326)")
+    private Geometry location;
 
     public UserLocationGIS() {
     }
@@ -60,11 +61,11 @@ public class UserLocationGIS implements Serializable {
         this.type = type;
     }
 
-    public PGgeometry getLocation() {
+    public Geometry getLocation() {
         return location;
     }
 
-    public void setLocation(PGgeometry location) {
+    public void setLocation(Geometry location) {
         this.location = location;
     }
 }

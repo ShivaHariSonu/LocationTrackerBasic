@@ -1,10 +1,9 @@
 package com.nsl.locationtracker.service.impl;
 
-import com.nsl.locationtracker.model.GeoLocationPoint;
-import com.nsl.locationtracker.model.KafkaObject;
-import com.nsl.locationtracker.model.UserLocationES;
-import com.nsl.locationtracker.model.UserLocationGIS;
+import com.nsl.locationtracker.dto.UserLocationDto;
+import com.nsl.locationtracker.model.*;
 import com.nsl.locationtracker.repository.PostGISRepository;
+import com.nsl.locationtracker.repository.UserLocationRepository;
 import com.nsl.locationtracker.service.abs.LocationTrackingService;
 import com.nsl.locationtracker.util.ObjectDtoConverter;
 import org.slf4j.Logger;
@@ -30,6 +29,9 @@ public class LocationTrackingServiceImpl implements LocationTrackingService {
 
     @Autowired
     private PostGISRepository postGISRepository;
+
+    @Autowired
+    private UserLocationRepository userLocationRepository;
 
     @Value(value = "${kafka.topic.locationtrack.out}")
     public String outputtopic;
@@ -75,6 +77,21 @@ public class LocationTrackingServiceImpl implements LocationTrackingService {
 
     @Override
     public List<UserLocationGIS> getUserInfo() {
-        return postGISRepository.findAll();
+        return (List<UserLocationGIS>) postGISRepository.findAll();
+    }
+
+    @Override
+    public List<UserLocation> getUserLocation() {
+        return userLocationRepository.findAll();
+    }
+    @Override
+    public List<UserLocation> getNearByLocations(UserLocationDto userLocationDto) {
+
+        return userLocationRepository.findAllNearByUsersOne(userLocationDto.getLongitude(),
+                userLocationDto.getLatitude(),
+                userLocationDto.getRadius(),
+                userLocationDto.getLimit(),
+                userLocationDto.getTenantid(),
+                userLocationDto.getLastminutes());
     }
 }
